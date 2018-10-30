@@ -1,0 +1,71 @@
+%clc; clear all;
+
+%Hand Measurements
+
+
+%Define known constants
+nu      = 1.562 * 10^-5;  %Kinematic viscosity of air at 25 [m²/s]
+rho     = 1.184;          %Density of air at 25C [kg/m³]
+h       = [129.51;116.8;102.35;90.4;78.45;63.52;54.62;39.85;26.66;14.29]; h=h/1000; %m;
+c       = 20/100; %m chord length
+w       = 60/100; %m chord length
+A       = 0.00299795; %m^2 cross sectional Area
+
+%path to data
+speedsRan   = [30, 35]; %m/s
+files    = string(1:1:10) + '.xlsx';
+nFiles   = length(files);
+
+%Location of data from wind tunnel
+if ispc 
+    path = 'E:\ThermoFluids\Lab_7\';
+elseif ismac
+    path = '';
+end
+
+%Import the data
+    timeRaw = cell(nFiles, 2);
+    uRaw    = cell(nFiles, 2);
+    FlRaw   = cell(nFiles, 2);
+    FdRaw   = cell(nFiles, 2);
+    
+    
+    u       = zeros(nFiles, 2);
+    Fl      = zeros(nFiles, 2);
+    Fd      = zeros(nFiles, 2);
+    
+    
+for i=1 : length(speedsRan) %30, 35
+    %Get aveage values for each column
+    for j=1 : nFiles %Run1, Run2, Run3, Run4, etc
+        fileName    = path+string(speedsRan(i))+'\Run'+j;
+        [data, ~]   = xlsread(fileName);
+        
+        timeRaw{j,i}  = data(:,1);
+        uRaw{j,i}     = data(:,2);
+        FlRaw{j,i}    = data(:,3);
+        FdRaw{j,i}    = data(:,4);
+        u (j,i) = mean(double(uRaw{j}));
+        Fl(j,i) = mean(double(FlRaw{j}));
+        Fd(j,i) = mean(double(FdRaw{j}));
+    end%for
+    %Calculate Re, Cl, Cd from average vectors
+    Re(:,1) = u.*c/nu;
+    Cl = (Fl)./(rho.*u.^2.*A);
+    Cd = (Fd)./(rho.*u.^2.*A);
+end%for
+
+
+% Re = u.*c/nu;
+% Cl = (Fl)./(rho.*u.^2.*A);
+% Cd = (Fd)./(rho.*u.^2.*A);
+
+% %Plot Cl over h/c
+% hOverC = h/c;
+% figure(1);
+% plot(hOverC, Cl(:,1));
+% set(gca, 'Ydir', 'reverse');
+% xlabel("h/c");
+% ylabel("-Cl");
+% figure(2);
+% plot(hOverC, Cl(:,2));

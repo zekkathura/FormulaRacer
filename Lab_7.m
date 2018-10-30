@@ -1,4 +1,4 @@
-clc; clear all;
+%clc; clear all;
 
 %Hand Measurements
 
@@ -23,33 +23,56 @@ elseif ismac
     path = '';
 end
 
-%Import the data
-for i=1 : length(speedsRan) %30, 35
-    %Get aveage values for each column
-    timeRaw = cell(nFiles, 1);
-    uRaw    = cell(nFiles, 1);
-    FlRaw   = cell(nFiles, 1);
-    FdRaw   = cell(nFiles, 1);
-    
-    u       = zeros(nFiles, 1);
-    Fl      = zeros(nFiles, 1);
-    Fd      = zeros(nFiles, 1);
-    for j=1 : nFiles %Run1, Run2, Run3, Run4, etc
-        fileName    = path+string(speedsRan(i))+'\Run'+j;
-        [data, ~]   = xlsread(fileName);
-        
-        timeRaw{j}  = data(:,1);
-        uRaw{j}     = data(:,2);
-        FlRaw{j}    = data(:,3);
-        FdRaw{j}    = data(:,4);
+% %Import the data
+%     timeRaw = cell(nFiles, 2);
+%     uRaw    = cell(nFiles, 2);
+%     FlRaw   = cell(nFiles, 2);
+%     FdRaw   = cell(nFiles, 2);
+%     
+%     
+%     u       = zeros(nFiles, 2);
+%     Fl      = zeros(nFiles, 2);
+%     Fd      = zeros(nFiles, 2);
+%     Re      = zeros(nFiles, 2);
+%     Cl      = zeros(nFiles, 2);
+%     Cd      = zeros(nFiles, 2);
+%     
+% for i=1 :  2 %length(speedsRan) %30, 35
+%     %Get aveage values for each column
+%     for j=1 : nFiles %Run1, Run2, Run3, Run4, etc
+%         fileName    = path+string(speedsRan(i))+'\Run'+j;
+%         [data, ~]   = xlsread(fileName);
+%         
+%         timeRaw{j,i}  = data(:,1);
+%         uRaw{j,i}     = data(:,2);
+%         FlRaw{j,i}    = data(:,3);
+%         FdRaw{j,i}    = data(:,4);
+%         u (j,i) = mean(double(uRaw{j,i}));
+%         Fl(j,i) = mean(double(FlRaw{j,i}));
+%         Fd(j,i) = mean(double(FdRaw{j,i}));
+%     end%for
+%     %Calculate Re, Cl, Cd from average vectors
+%     Re(:,i) = u(:,i).*c/nu;
+%     Cl(:,i) = (Fl(:,i))./(rho.*u(:,i).^2.*A);
+%     Cd(:,i) = (Fd(:,i))./(rho.*u(:,i).^2.*A);
+% end%for
 
-        u(j)  = mean(double(uRaw{j}));
-        Fl(j) = mean(double(FlRaw{j}));
-        Fd(j) = mean(double(FdRaw{j}));
-    end%for
-end%for
 
-%Calculate Re, Cl, Cd from average vectors
 Re = u.*c/nu;
 Cl = (Fl)./(rho.*u.^2.*A);
 Cd = (Fd)./(rho.*u.^2.*A);
+
+%Plot Cl over h/c
+hOverC = h/c;
+figure(1);
+yyaxis left
+plot(hOverC, Cl(:,1));
+hold on
+set(gca, 'Ydir', 'reverse');
+xlabel("h/c");
+ylabel("Cl");
+yyaxis right
+set(gca, 'Ydir', 'reverse');
+ylabel("Cd");
+plot(hOverC, Cl(:,2));
+legend({'30 m/s' , '35 m/s'}, 'Location', 'southeast');
