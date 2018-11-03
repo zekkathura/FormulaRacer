@@ -22,7 +22,7 @@ if ispc
     subDir = '\Run';
 elseif ismac
     path = 'Data/';
-    subDir = '/Run'
+    subDir = '/Run';
 end
 
 %Import the data
