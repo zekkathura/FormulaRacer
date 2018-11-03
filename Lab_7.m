@@ -53,19 +53,28 @@ for i=1 :  2 %length(speedsRan) %30, 35
     end%for
     %Calculate Re, Cl, Cd from average vectors
     Re(:,i) = u(:,i).*c/nu;
-    Cl(:,i) = (Fl(:,i))./(rho.*u(:,i).^2.*A);
-    Cd(:,i) = (Fd(:,i))./(rho.*u(:,i).^2.*A);
+    Cl(:,i) = 2*(Fl(:,i))./(rho.*u(:,i).^2.*c*w);
+    Cd(:,i) = 2*(Fd(:,i))./(rho.*u(:,i).^2.*c*w);
 end%for
 
 
-Re = u.*c/nu;
-Cl = (Fl)./(rho.*u.^2.*A);
-Cd = (Fd)./(rho.*u.^2.*A);
+% Re = u.*c/nu;
+% Cl = (Fl)./(rho.*u.^2.*A);
+% Cd = (Fd)./(rho.*u.^2.*A);
 
 %Plot Cl over h/c
 hOverC = h/c;
 figure(1);
 %Plot left axis
+%yyaxis left
+plot(hOverC, Cl(:,1) / Cd(:,1));
+hold on
+%set(gca, 'Ydir', 'reverse');
+xlabel("h/c");
+ylabel("Cl/Cd");
+hold off
+
+figure(2);
 yyaxis left
 plot(hOverC, Cl(:,1));
 hold on
