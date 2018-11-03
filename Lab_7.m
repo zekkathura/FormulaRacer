@@ -19,8 +19,10 @@ nFiles   = length(files);
 %Location of data from wind tunnel
 if ispc 
     path = 'E:\ThermoFluids\Lab_7\';
+    subDir = '\Run';
 elseif ismac
-    path = 'Data/'; %Put stuff in here 
+    path = 'Data/';
+    subDir = '/Run'
 end
 
 %Import the data
@@ -40,7 +42,7 @@ end
 for i=1 :  2 %length(speedsRan) %30, 35
     %Get aveage values for each column
     for j=1 : nFiles %Run1, Run2, Run3, Run4, etc
-        fileName    = path+string(speedsRan(i))+'\Run'+j;
+        fileName    = path+string(speedsRan(i))+subDir+j;
         [data, ~]   = xlsread(fileName);
         
         timeRaw{j,i}  = data(:,1);
