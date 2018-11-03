@@ -20,7 +20,7 @@ nFiles   = length(files);
 if ispc 
     path = 'E:\ThermoFluids\Lab_7\';
 elseif ismac
-    path = ''; %Put stuff in here 
+    path = 'Data/'; %Put stuff in here 
 end
 
 %Import the data
