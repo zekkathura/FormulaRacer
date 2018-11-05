@@ -1,4 +1,4 @@
-clc; clear all;
+%clc; clear all;
 
 %Hand Measurements
 
@@ -71,22 +71,20 @@ figure(1);
 %yyaxis left
 plot(hOverC, Cl(:,1) / Cd(:,1));
 hold on
+plot(hOverC, Cl(:,2) / Cd(:,2));
 %set(gca, 'Ydir', 'reverse');
 xlabel("h/c");
 ylabel("Cl/Cd");
+set(gca, 'Ydir', 'reverse');
+legend({'30 m/s' , '35 m/s'}, 'Location', 'southeast');
 hold off
 
 figure(2);
-yyaxis left
 plot(hOverC, Cl(:,1));
 hold on
+plot(hOverC, Cl(:,2));
 set(gca, 'Ydir', 'reverse');
 xlabel("h/c");
 ylabel("Cl");
-%Plot right axis
-yyaxis right
-set(gca, 'Ydir', 'reverse');
-ylabel("Cd");
-plot(hOverC, Cl(:,2));
 legend({'30 m/s' , '35 m/s'}, 'Location', 'southeast');
-hold off
+
