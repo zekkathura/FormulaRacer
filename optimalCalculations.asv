@@ -19,14 +19,8 @@ filesOptimal  = string(5:2:35) + '.xlsx';
 nFilesOptimal = length(filesOptimal);
 
 %Location of data from wind tunnel
-if ispc 
-    path = 'E:\ThermoFluids\Lab_7\';
-    subDir = '\Run';
-    pathOpt = 'E:\ThermoFluids\Lab_7\max height\';
-elseif ismac
-    path = 'Data/';
-    subDir = '/Run';
-end
+pathOpt = 'E:\ThermoFluids\Lab_7\max height\';
+
 
 %Import the data
     timeRaw = cell(nFiles, 2);
