@@ -53,7 +53,7 @@ for i=1 :  1 %For max h/c location
     Cd(:,i) = 2*(Fd(:,i))./(rho.*u(:,i).^2.*c*w);
 end%for
 
-%Plot Cl/Cd versus Reynolds Number
+%Plot Cl versus Reynolds Number
 figure(1);
 %Plot left axis
 plot(Re(:,1), Cl(:,1));
@@ -61,6 +61,18 @@ hold on
 xlabel("Reynolds Number");
 ylabel("Cl");
 set(gca, 'Ydir', 'reverse');
+set(gcf,'color','w');
+saveas(gcf,'OptimalHeight.fig')
+hold off
+
+%Plot Cd versus Reynolds Number
+figure(2);
+%Plot left axis
+plot(Re(:,1), Cd(:,1));
+hold on
+xlabel("Reynolds Number");
+ylabel("Cd");
+set(gcf,'color','w');
 saveas(gcf,'OptimalHeight.fig')
 hold off
 

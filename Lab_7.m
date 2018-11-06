@@ -80,6 +80,7 @@ xlabel("h/c");
 ylabel("Cl/Cd");
 set(gca, 'Ydir', 'reverse');
 legend({'30 m/s' , '35 m/s'}, 'Location', 'southeast');
+set(gcf,'color','w');
 hold off
 
 figure(2);
@@ -87,6 +88,7 @@ plot(hOverC, Cl(:,1));
 hold on
 plot(hOverC, Cl(:,2));
 set(gca, 'Ydir', 'reverse');
+set(gcf,'color','w');
 xlabel("h/c");
 ylabel("Cl");
 legend({'30 m/s' , '35 m/s'}, 'Location', 'southeast');
